@@ -35,7 +35,7 @@ You can install the development version of MONTAGE
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("plevritis/MONTAGE")
+devtools::install_github("plevritis-lab/MONTAGE")
 library(MONTAGE)
 ```
 
