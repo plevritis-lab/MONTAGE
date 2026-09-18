@@ -1,0 +1,23 @@
+Package: MONTAGE
+Title: MONTAGE: A computational framework for spatially-resolved functional enrichment gradients in the tissue microenvironment via spatial communities
+Version: 0.0.0.9000
+Authors@R: 
+    person(given="Weiruo", 
+           family="Zhang", 
+           email="weiruo16@stanfod.edu", 
+           role = c("aut", "cre"))
+Description: This package implements the computational framework MONTAGE. It has three parts. (1) Spatial community identification in single-cell resolution spatial omic data. (2) Create the MONTAGE signature matrix by integrating scRNAseq and single-cell spatial proteomics data. (3) Identify a sequence of spatial community composition changes along spatially-resolved gradient of a certain functional enrichment, aka, a montage.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Imports:
+	ggforce,
+        spdep,
+        ggplot2,
+        GSVA,
+        gplots,
+        RColorBrewer
+Depends: 
+    R (>= 2.10)
+LazyData: true
