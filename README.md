@@ -93,10 +93,7 @@ calculate the cell type densities within the N-nearest neighbors
 ### Cell neighborhood density matrix (for each cell neighborhood, calculate the cell type densities)
 ### 10-nearest neighbors is used. The "cell_types" requires a vector of cell types 
 ### identified in the spatial omic data.
-cell_neighborhood_density_matrix <- Neighborhood_Density(metadata,
-                                                         number_of_neighbors=10,
-                                                         cell_types=unique(metadata$cell_type),
-                                                         sample_id)
+cell_neighborhood_density_matrix <- Neighborhood_Density(metadata,number_of_neighbors=10, cell_types=unique(metadata$cell_type),sample_id)
 ```
 
 This function performs clustering on a matirx with each row is a cell
@@ -110,9 +107,7 @@ the spatial omic images.
 data("cluster_center")
 ### Run clustering on the cell neighborhood density matrix
 ### Overcluster to 30
-initial_neighborhood_clustering <- Spatial_Neighborhood_Clustering(n_neighborhood=30,                                                      neighbor_matrix=cell_neighborhood_density_matrix,
-                                                                   metadata,cell_types,
-                                                                   cluster_center)
+initial_neighborhood_clustering <- Spatial_Neighborhood_Clustering(n_neighborhood=30,neighbor_matrix=cell_neighborhood_density_matrix,metadata,cell_types=unique(metadata$cell_type),cluster_center)
 ```
 
 This function performs clustering on the spatial neighborhood cell type
@@ -126,7 +121,7 @@ data("spatial_neighborhood_anno")
 ### Run clustering on the spatial neighborhood cell type compositions
 ### for spatial communities. We recommend 8-10 spatial community clusters based on testing
 ### adjacent spatial omic and bulk RNA-seq slices.
-spatial_community_clustering <- Spatial_Community_Clustering(initial_neighborhood_clustering,                                               neighborhood_cell_composition=spatial_neighborhood_anno,
+spatial_community_clustering <- Spatial_Community_Clustering(initial_neighborhood_clustering,neighborhood_cell_composition=spatial_neighborhood_anno,
                                                              metadata,n_community=8)
 ```
 

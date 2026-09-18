@@ -9,7 +9,8 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "images/Title_figure.png",
-  out.width = "100%"
+  out.width = "100%",
+  eval = FALSE
 )
 options(tibble.print_min = 5, tibble.print_max = 5)
 ```
@@ -67,10 +68,7 @@ The following function identifies the N-nearest neighboring cells, and calculate
 ### Cell neighborhood density matrix (for each cell neighborhood, calculate the cell type densities)
 ### 10-nearest neighbors is used. The "cell_types" requires a vector of cell types 
 ### identified in the spatial omic data.
-cell_neighborhood_density_matrix <- Neighborhood_Density(metadata,
-                                                         number_of_neighbors=10,
-                                                         cell_types=unique(metadata$cell_type),
-                                                         sample_id)
+cell_neighborhood_density_matrix <- Neighborhood_Density(metadata,number_of_neighbors=10, cell_types=unique(metadata$cell_type),sample_id)
 ```
 This function performs clustering on a matirx with each row is a cell and each column is the cell type densities in the N-nearest neighborhood to identify spatial neighborhood. For reference, over-clustering is illustrated and then the clusters are merged manually based on assessing the spatial omic images.
 ```{r,results='hide',message=FALSE}
@@ -78,9 +76,7 @@ This function performs clustering on a matirx with each row is a cell and each c
 data("cluster_center")
 ### Run clustering on the cell neighborhood density matrix
 ### Overcluster to 30
-initial_neighborhood_clustering <- Spatial_Neighborhood_Clustering(n_neighborhood=30,                                                      neighbor_matrix=cell_neighborhood_density_matrix,
-                                                                   metadata,cell_types,
-                                                                   cluster_center)
+initial_neighborhood_clustering <- Spatial_Neighborhood_Clustering(n_neighborhood=30,neighbor_matrix=cell_neighborhood_density_matrix,metadata,cell_types=unique(metadata$cell_type),cluster_center)
 ```
 This function performs clustering on the spatial neighborhood cell type compositions to identify the spatial communities.
 ```{r,results='hide',message=FALSE}
@@ -91,7 +87,7 @@ data("spatial_neighborhood_anno")
 ### Run clustering on the spatial neighborhood cell type compositions
 ### for spatial communities. We recommend 8-10 spatial community clusters based on testing
 ### adjacent spatial omic and bulk RNA-seq slices.
-spatial_community_clustering <- Spatial_Community_Clustering(initial_neighborhood_clustering,                                               neighborhood_cell_composition=spatial_neighborhood_anno,
+spatial_community_clustering <- Spatial_Community_Clustering(initial_neighborhood_clustering,neighborhood_cell_composition=spatial_neighborhood_anno,
                                                              metadata,n_community=8)
 ```
 This function produces the final output metadata with spatial neighborhood and spatial community annotations for each cell, appending to the initial metadata
